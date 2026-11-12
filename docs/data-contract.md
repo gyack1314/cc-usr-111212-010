@@ -1,0 +1,7 @@
+# 日期任务实例目录
+
+upstreams offsets是父日期相对子日期的整数天偏移，依赖集合有序去重。allowed_recompute为闭日期范围，范围外实例只允许引用已登记complete分区，缺失则blocked，不额外启动；范围内叶raw也需可信任务函数或已有complete输入，没有函数不得假造成功。循环按具体实例图检测，正负偏移可能造成无穷展开，max_instances触顶报告unresolved而不是无环或无解。
+
+计划先展开目标所有必需输入，再将changed通过反向offset关系传播到范围内已登记或目标可达实例，不主动制造无限未来任务。dirty实例重算后若内容hash与原已发布hash相同，可保留原快照内容并停止由这一内容变化继续失效；但其运行证据和转换版本更新仍登记，显式任务版本变化的下游独立dirty不被取消。
+
+逻辑租约expires_at=领取时间+lease_seconds，now>=expires_at即失效。token在每个实例每次领取递增，不复用，续租只在未到期且token仍当前时允许。发布需目录中所有读依赖仍同hash且complete、任务版本相同、token未过期；完整输出位置及摘要先核对后短事务切换。任务函数是可信Python映射，用合成逻辑步骤提供阻塞及返回值，不接真实编排服务。

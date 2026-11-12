@@ -1,0 +1,87 @@
+{
+  "tasks": [
+    {
+      "dataset": "raw",
+      "version": "raw1",
+      "upstreams": []
+    },
+    {
+      "dataset": "daily",
+      "version": "daily1",
+      "upstreams": [
+        {
+          "dataset": "raw",
+          "offsets": [
+            -1,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "dataset": "report",
+      "version": "report1",
+      "upstreams": [
+        {
+          "dataset": "daily",
+          "offsets": [
+            -1,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "partitions": [
+    {
+      "dataset": "raw",
+      "date": "2026-12-30",
+      "hash": "r30",
+      "status": "complete"
+    },
+    {
+      "dataset": "raw",
+      "date": "2026-12-31",
+      "hash": "r31",
+      "status": "complete"
+    },
+    {
+      "dataset": "raw",
+      "date": "2027-01-01",
+      "hash": "r01",
+      "status": "complete"
+    },
+    {
+      "dataset": "daily",
+      "date": "2026-12-31",
+      "hash": "d31",
+      "status": "complete"
+    },
+    {
+      "dataset": "daily",
+      "date": "2027-01-01",
+      "hash": "d01",
+      "status": "incomplete"
+    }
+  ],
+  "targets": [
+    {
+      "dataset": "report",
+      "date": "2027-01-01"
+    }
+  ],
+  "allowed_recompute": {
+    "start": "2026-12-31",
+    "end": "2027-01-01"
+  },
+  "changed": [
+    {
+      "dataset": "raw",
+      "date": "2026-12-31",
+      "new_hash": "r31-new"
+    }
+  ],
+  "lease_seconds": 20,
+  "logical_now": 0,
+  "max_instances": 1000
+}
