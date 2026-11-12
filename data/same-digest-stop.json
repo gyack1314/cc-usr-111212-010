@@ -1,0 +1,80 @@
+{
+  "tasks": [
+    {
+      "dataset": "meter",
+      "version": "meter1",
+      "upstreams": []
+    },
+    {
+      "dataset": "watermark",
+      "version": "wm1",
+      "upstreams": [
+        {
+          "dataset": "meter",
+          "offsets": [
+            -1,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "dataset": "brief",
+      "version": "brief1",
+      "upstreams": [
+        {
+          "dataset": "watermark",
+          "offsets": [
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "partitions": [
+    {
+      "dataset": "meter",
+      "date": "2027-01-09",
+      "hash": "m9",
+      "status": "complete"
+    },
+    {
+      "dataset": "meter",
+      "date": "2027-01-10",
+      "hash": "z1",
+      "status": "complete"
+    },
+    {
+      "dataset": "watermark",
+      "date": "2027-01-10",
+      "hash": "z1",
+      "status": "complete"
+    },
+    {
+      "dataset": "brief",
+      "date": "2027-01-10",
+      "hash": "b10",
+      "status": "complete"
+    }
+  ],
+  "targets": [
+    {
+      "dataset": "brief",
+      "date": "2027-01-10"
+    }
+  ],
+  "allowed_recompute": {
+    "start": "2027-01-09",
+    "end": "2027-01-10"
+  },
+  "changed": [
+    {
+      "dataset": "meter",
+      "date": "2027-01-09",
+      "new_hash": "m9-new"
+    }
+  ],
+  "lease_seconds": 20,
+  "logical_now": 0,
+  "max_instances": 100
+}
